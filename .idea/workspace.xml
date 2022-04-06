@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4b3c09da-1ac8-44e1-ad28-a46389a7db5f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/.cmake/api/v1/query/cache-v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/.cmake/api/v1/query/cmakeFiles-v1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/.cmake/api/v1/query/codemodel-v2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/.cmake/api/v1/query/toolchains-v1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/.cmake/api/v1/reply/cache-v2-88e1154a3fcfd63d4210.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/.cmake/api/v1/reply/cmakeFiles-v1-c8d82443722a247e3bc5.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/.cmake/api/v1/reply/codemodel-v2-b0d357ff11dbe2f50cbb.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/.cmake/api/v1/reply/directory-.-esp_wroom_02-f5ebdc15457944623624.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/.cmake/api/v1/reply/index-2022-04-06T15-16-38-0175.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/.cmake/api/v1/reply/target-Debug-esp_wroom_02-256d59e36517468240f2.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/.cmake/api/v1/reply/target-Production-esp_wroom_02-f52878068877e99efd65.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/.cmake/api/v1/reply/target-Z_DUMMY_TARGET-esp_wroom_02-f5c840663f47a9379847.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/.cmake/api/v1/reply/toolchains-v1-86af391314df274e2aa6.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/CMakeCache.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/CMakeFiles/3.21.1/CMakeCCompiler.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/CMakeFiles/3.21.1/CMakeCXXCompiler.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/CMakeFiles/3.21.1/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/CMakeFiles/3.21.1/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/CMakeFiles/3.21.1/CMakeSystem.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/CMakeFiles/3.21.1/CompilerIdC/CMakeCCompilerId.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/CMakeFiles/3.21.1/CompilerIdC/a.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/CMakeFiles/3.21.1/CompilerIdCXX/CMakeCXXCompilerId.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/CMakeFiles/3.21.1/CompilerIdCXX/a.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/CMakeFiles/clion-environment.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/CMakeFiles/cmake.check_cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/CMakeFiles/rules.ninja" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/build.ninja" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/cmake-build-esp_wroom_02/cmake_install.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/lib/gpio/gpio.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/lib/gpio/gpio.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/lib/gpio/pinio.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/lib/gpio/pinio.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/lib/pump/pump.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/lib/pump/pump.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/src/main.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ESP32/test/test_desktop/test_pump.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/ESP32/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ESBee.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ESP32/.idea/ESBee.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ESP32/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/ESP32/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/ESP32/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/README" beforeDir="false" afterPath="$PROJECT_DIR$/ESP32/include/README" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/README" beforeDir="false" afterPath="$PROJECT_DIR$/ESP32/lib/README" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platformio.ini" beforeDir="false" afterPath="$PROJECT_DIR$/ESP32/platformio.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ESP32/src/wifi_snippet" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/README" beforeDir="false" afterPath="$PROJECT_DIR$/ESP32/test/README" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MakefileLocalSettings">
+    <option name="availableProjects">
+      <map>
+        <entry>
+          <key>
+            <ExternalProjectPojo>
+              <option name="name" value="ESBee" />
+              <option name="path" value="$PROJECT_DIR$" />
+            </ExternalProjectPojo>
+          </key>
+          <value>
+            <list>
+              <ExternalProjectPojo>
+                <option name="name" value="ESBee" />
+                <option name="path" value="$PROJECT_DIR$" />
+              </ExternalProjectPojo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="projectSyncType">
+      <map>
+        <entry key="$PROJECT_DIR$" value="RE_IMPORT" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectId" id="27QwqT2irG1R4Jc1p4RqbXQUR2N" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_MARK_IGNORED_FILES_AS_EXCLUDED" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ESP32" />
+    <property name="settings.editor.selected.configurable" value="clion.platformio.config" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4b3c09da-1ac8-44e1-ad28-a46389a7db5f" name="Changes" comment="" />
+      <created>1649258178377</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1649258178377</updated>
+      <workItem from="1649258181126" duration="9000" />
+      <workItem from="1649265808920" duration="39000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
