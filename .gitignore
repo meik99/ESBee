@@ -1,2 +1,4 @@
 .pio
-/include/wifi_credentials.h
+/ESP32/include/wifi_credentials.h
+/ESP32/cmake-build-esp_wroom_02
+/ESP32/.pio
