@@ -12,3 +12,5 @@ clean:
 monitor:
 	 pio device monitor
 
+test:
+	pio test
