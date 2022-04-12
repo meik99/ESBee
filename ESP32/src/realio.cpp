@@ -2,20 +2,19 @@
 // Created by michael on 4/6/22.
 //
 
-#include "Arduino.h"
-#include "gpio.h"
+#include <realio.h>
 
-void GPIO::on(int pin) {
+void RealIO::on(int pin) {
     this->pinMap[pin] = true;
     digitalWrite(pin, HIGH);
 }
 
-void GPIO::off(int pin) {
+void RealIO::off(int pin) {
     this->pinMap[pin] = false;
     digitalWrite(pin, LOW);
 }
 
-void GPIO::toggle(int pin) {
+void RealIO::toggle(int pin) {
     if (this->pinMap.find(pin) == this->pinMap.end()) {
         this->pinMap[pin] = false;
     }

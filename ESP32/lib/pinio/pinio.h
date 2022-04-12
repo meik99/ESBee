@@ -8,9 +8,9 @@
 
 class PinIO {
 public:
-    virtual void on(int pin);
-    virtual void off(int pin);
-    virtual void toggle(int pin);
+    virtual void on(int pin) {};
+    virtual void off(int pin) {};
+    virtual void toggle(int pin) {};
 };
 
 
