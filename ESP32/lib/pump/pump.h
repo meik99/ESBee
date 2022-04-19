@@ -23,11 +23,34 @@ private:
 public:
     Pump(PinIO *pinIo, int pin);
     // 1/2 ml / s
+    /**
+     * Starts the pump by calling PinIO::on of the provided PinIO interface.
+     * @param startTime A long indicating the time passed since the program started
+     */
     void start(long startTime);
+    /**
+     * Stops the pump by calling PinIO::off of the provided PinIO interface.
+     */
     void stop();
+    /**
+     * Returns how many milliliters were approximately pumped between the @startTime provided by @Pump::start
+     * and the @currentTime
+     * @param currentTime A long indicating the time passed since the program started
+     * @return A float representing the milliliters that were approximately pumped
+     */
     float pumpedMilliliter(long currentTime);
+    /**
+     * Returns how many grams were approximately pumped between the @startTime provided by @Pump::start
+     * and the @currentTime. It does so by multiplying @Pump::pumpedMilliliter by the density of formic acid
+     * @param currentTime A long indicating the time passed since the program started
+     * @return  A float representing the grams that were approximately pumped
+     */
     float pumpedGrams(long currentTime);
-    bool isPumping();    
+    /**
+     * Returns whether or not the pump is currently pumping
+     * @return A boolean
+     */
+    bool isPumping();
 };
 
 
