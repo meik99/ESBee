@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-success" *ngIf="successful">
+        Successfully connected to websocket
+      </div>
+      <div class="alert alert-danger" *ngIf="error">
+        Error when trying to connect to websocket<br>
+        {{error}}
+      </div>
+    </div>
+  </div>
+</div>
