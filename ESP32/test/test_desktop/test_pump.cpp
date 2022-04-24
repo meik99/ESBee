@@ -8,6 +8,9 @@
 #include <iostream>
 #include <map>
 
+#ifndef ESP32_TEST_PUMP
+#define ESP32_TEST_PUMP
+
 class MockPinIO : public PinIO{
 public:
     std::map<int, bool> map;
@@ -63,9 +66,4 @@ void test_pump(void) {
     TEST_ASSERT(!pump->isPumping());
 }
 
-int main(int argc, char **argv) {
-    UNITY_BEGIN();
-    RUN_TEST(test_pump);
-    UNITY_END();
-    return 0;
-}
+#endif //ESP32_TEST_PUMP

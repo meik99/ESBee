@@ -1,14 +1,15 @@
 #include <Arduino.h>
 #include <pump.h>
-#include <realio.h>
-#include <DHT.h>
+#include <humidity.h>
+
+#include "realio/realio.h"
+#include "dht_repository/dht_repository.h"
 
 #define PUMP_RELAY 27
 #define HUMIDITY_SENSOR 25
-#define DHTTYPE DHT11
 
-DHT dht(HUMIDITY_SENSOR, DHTTYPE);
 RealIO *realIO = new RealIO();
+Humidity *humidity;
 
 void testPump(RealIO *realIO);
 void readHumidityAndTemperature();
@@ -29,9 +30,9 @@ void setup() {
     pinMode(PUMP_RELAY, OUTPUT);
     
     Serial.printf("initializing humidty sensor on pin %d\n", HUMIDITY_SENSOR);
-    dht.begin();
+    humidity = new Humidity(new DHTRepository(HUMIDITY_SENSOR));
 
-    // testPump(realIO);
+    testPump(realIO);
 
     Serial.println("shutting down");    
     Serial.printf("shutting down pump on %d\n", PUMP_RELAY);
@@ -65,16 +66,17 @@ void loop() {
 }
 
 void readHumidityAndTemperature() {
-    float humidity = dht.readHumidity();
-    float temperature = dht.readTemperature();
+    humidity->measure();
+    float humidityMeasurement = humidity->getHumidity();
+    float temperatureMeasurement = humidity->getTemperature();
 
-    if (isnan(humidity)) {
+    if (isnan(humidityMeasurement)) {
         Serial.println("failed to read humidity");
     }
-    if (isnan(temperature)) {
+    if (isnan(temperatureMeasurement)) {
         Serial.println("failed to read temperature");
     }
-    if (!isnan(humidity) && !isnan(temperature)) {
-        Serial.printf("\n\nC: %.3f\nH: %.3f\n\n", temperature, humidity);
+    if (!isnan(humidityMeasurement) && !isnan(temperatureMeasurement)) {
+        Serial.printf("\n\nC: %.3f\nH: %.3f\n\n", temperatureMeasurement, humidityMeasurement);
     }
 }
