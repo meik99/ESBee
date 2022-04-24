@@ -2,7 +2,7 @@
 // Created by michael on 4/6/22.
 //
 
-#include <realio.h>
+#include "realio.h"
 
 void RealIO::on(int pin) {
     this->pinMap[pin] = true;
