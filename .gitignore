@@ -4,3 +4,5 @@
 /ESP32/.pio
 /include/wifi_credentials.h
 /Web/.vscode/
+/Web/node_modules/
+/ESP32/ESP32.iml
