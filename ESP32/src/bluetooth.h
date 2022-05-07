@@ -6,5 +6,4 @@
 #define ESP32_BLUETOOTH_H
 
 
-
 #endif //ESP32_BLUETOOTH_H

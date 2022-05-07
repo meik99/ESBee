@@ -1,16 +1,5 @@
 #include "control.h"
 
-#include <Arduino.h>
-#include <pump.h>
-#include <humidity.h>
-
-#include "realio/realio.h"
-#include "dht_repository/dht_repository.h"
-
-#define PUMP_RELAY 27
-#define HUMIDITY_SENSOR 25
-#define FAN 26
-
 RealIO *realIO = new RealIO();
 Humidity *humidity;
 
