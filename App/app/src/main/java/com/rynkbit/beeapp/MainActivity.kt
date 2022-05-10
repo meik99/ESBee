@@ -14,6 +14,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.rynkbit.beeapp.processor.ProcessorInfo
 import com.rynkbit.beeapp.ui.theme.BeeAppTheme
 
 @ExperimentalMaterialApi
@@ -42,12 +43,12 @@ fun Main() {
             color = MaterialTheme.colors.background
         ) {
             val navController = rememberNavController()
-            NavHost(navController = navController, startDestination = "bluetooth_finder") {
-                composable("bluetooth_finder"){
+            NavHost(navController = navController, startDestination = "bluetooth/finder") {
+                composable("bluetooth/finder"){
                     BluetoothFinder(navController)
                 }
-                composable("management") {
-                    Text("Connected")
+                composable("processor/info") {
+                    ProcessorInfo()
                 }
             }
         }

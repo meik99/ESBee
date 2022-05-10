@@ -29,6 +29,8 @@ import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.rynkbit.beeapp.bluetooth.BluetoothConnection
+import com.rynkbit.beeapp.processor.ProcessorInfoViewModel
 import com.rynkbit.beeapp.ui.theme.defaultElevation
 import com.rynkbit.beeapp.ui.theme.defaultPadding
 import com.rynkbit.beeapp.ui.theme.largePadding
@@ -85,6 +87,8 @@ fun BluetoothScanLifecycleManager(scanner: BluetoothScanner) {
 @ExperimentalMaterialApi
 @Composable
 fun BluetoothDeviceList(bluetoothDevices: List<BluetoothDevice>, navController: NavHostController) {
+    val processorInfoViewModel: ProcessorInfoViewModel = viewModel()
+
     Row {
         LazyColumn {
             items(bluetoothDevices) {
@@ -93,8 +97,8 @@ fun BluetoothDeviceList(bluetoothDevices: List<BluetoothDevice>, navController: 
                     name = it.getAliasOrName(),
                     address = it.address,
                     onClick = {
-
-                        it.connectGatt(context, false, navigateToManagement(it, navController))
+                        it.connectGatt(context, false,
+                            navigateToManagement(it, processorInfoViewModel, navController))
                     }
                 )
             }
@@ -117,14 +121,17 @@ fun BluetoothDeviceList(bluetoothDevices: List<BluetoothDevice>, navController: 
 
 fun navigateToManagement(
     bluetoothDevice: BluetoothDevice,
+    processorInfoViewModel: ProcessorInfoViewModel,
     navController: NavHostController
 ): BluetoothGattCallback {
     return object : BluetoothGattCallback() {
         override fun onConnectionStateChange(gatt: BluetoothGatt?, status: Int, newState: Int) {
             super.onConnectionStateChange(gatt, status, newState)
-            if (newState == BluetoothProfile.STATE_CONNECTED) {
+            if (newState == BluetoothProfile.STATE_CONNECTED && gatt != null) {
                 CoroutineScope(Dispatchers.Main).launch {
-                    navController.navigate("management")
+                    BluetoothConnection().bluetoothDevice = bluetoothDevice
+                    BluetoothConnection().bluetoothGatt = gatt
+                    navController.navigate("processor/info")
                 }
             }
             Log.d("BluetoothFinder", "onConnectionStateChange: $status, $newState")
