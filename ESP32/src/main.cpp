@@ -8,7 +8,9 @@
 #include <string>
 
 #define SENSOR_SERVICE_UUID "181A"
+// #define SENSOR_SERVICE_UUID "83b5cd4d-69ac-4d05-951c-009b0f0db3d3"
 #define CHARACTERISTIC_TEMPERATURE_UUID "2A1C"
+//#define CHARACTERISTIC_TEMPERATURE_UUID "28ecc560-82ed-4438-98ac-9870c977cb44"
 
 BLECharacteristic *characteristicTemperature;
 
@@ -18,9 +20,6 @@ void setup() {
     while(!Serial) {
         delay(100);
     }
-
-    // Wait five seconds so monitor has time to connect
-    delay(2000);
 
     BLEDevice::init("Bee-saver-tron 3000");
     BLEServer *server = BLEDevice::createServer();
@@ -41,8 +40,7 @@ void setup() {
 }
 
 void loop() {
-    double temp = 10;
-    characteristicTemperature->setValue(temp);
+    characteristicTemperature->setValue("10°C");
     characteristicTemperature->notify();
 
     delay(1000);
