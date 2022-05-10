@@ -1,52 +1,83 @@
 package com.rynkbit.beeapp.processor
 
+import android.annotation.SuppressLint
 import android.bluetooth.BluetoothGattCharacteristic
 import android.bluetooth.BluetoothGattService
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.rynkbit.beeapp.bluetooth.BluetoothConnection
+import com.rynkbit.beeapp.bluetooth.GattCallback
 import com.rynkbit.beeapp.ui.theme.defaultPadding
 import com.rynkbit.beeapp.ui.theme.doublePadding
-import com.rynkbit.beeapp.ui.theme.largePadding
 import java.util.*
+import androidx.compose.runtime.getValue
 
+@SuppressLint("MissingPermission")
 @Composable
 fun ProcessorInfo() {
     val viewModel: ProcessorInfoViewModel = viewModel()
-    val services = viewModel.bluetoothGatt.services
+    val services by viewModel.services.observeAsState(listOf())
 
+    BluetoothConnection().bluetoothGatt?.let { bluetoothGatt ->
+        GattCallback().onServiceDiscovered.add(viewModel::onServiceDiscovered)
+        GattCallback().onCharacteristicRead.add(viewModel::onCharacteristicRead)
+        GattCallback().onDescriptorRead.add(viewModel::onDescriptorRead)
+        bluetoothGatt.discoverServices()
+    }
+
+    GattServiceList(services)
+}
+
+@Composable
+fun GattServiceList(services: List<BluetoothGattService>) {
     LazyColumn {
-        services.forEach { gattService ->
-            item {
-                GattService(gattService)
-            }
+        items(services) {
+            GattService(it)
         }
     }
 }
 
 @Preview
 @Composable
-fun GattService(gattService: BluetoothGattService = BluetoothGattService(
-    UUID.randomUUID(), BluetoothGattService.SERVICE_TYPE_PRIMARY)) {
-    Card {
-        Column(modifier = Modifier.padding(doublePadding)) {
-            Text(text = "UUID", color = Color.LightGray)
-            Text(text = gattService.uuid.toString())
-            Spacer(modifier = Modifier.height(defaultPadding))
-            Text(text = "Characteristics", color = Color.LightGray)
-            LazyColumn {
+fun GattService(
+    gattService: BluetoothGattService = BluetoothGattService(
+        UUID.randomUUID(), BluetoothGattService.SERVICE_TYPE_PRIMARY
+    )
+) {
+    if (gattService.uuid.toString() == "0000181a-0000-1000-8000-00805f9b34fb") {
+        Card(
+            modifier = Modifier
+                .padding(defaultPadding)
+                .fillMaxWidth()
+        ) {
+            Column(modifier = Modifier.padding(doublePadding)) {
+                Text(text = "UUID", color = Color.LightGray)
+                Text(text = gattService.uuid.toString())
+                Spacer(modifier = Modifier.height(defaultPadding))
+
+
+
+                if (gattService.characteristics.isNotEmpty()) {
+                    Text(text = "Characteristics", color = Color.LightGray)
+                }
+
                 gattService.characteristics.forEach { characteristic ->
-                    item {
+                    Divider()
+                    GattCharacteristic(characteristic)
+                }
+
+                gattService.includedServices.forEach { service ->
+                    service.characteristics.forEach { characteristic ->
                         Divider()
                         GattCharacteristic(characteristic)
                     }
@@ -56,16 +87,29 @@ fun GattService(gattService: BluetoothGattService = BluetoothGattService(
     }
 }
 
-@Preview
 @Composable
-fun GattCharacteristic(characteristic: BluetoothGattCharacteristic = BluetoothGattCharacteristic(
-    UUID.randomUUID(), BluetoothGattService.SERVICE_TYPE_PRIMARY, BluetoothGattCharacteristic.PERMISSION_READ
-)) {
+fun GattCharacteristic(
+    characteristic: BluetoothGattCharacteristic) {
     Column {
         Text(text = "UUID", color = Color.LightGray)
         Text(text = characteristic.uuid.toString())
-        Text(text = characteristic.value.toString())
-        Text(text = "Content", color = Color.LightGray)
-        Text(text = characteristic.value.contentToString())
+
+        if (characteristic.value != null){
+            Text(text = "Content", color = Color.LightGray)
+            Text(text = characteristic.value.contentToString())
+            Text(text = characteristic.value.decodeToString())
+            Text(text = characteristic.getStringValue(0))
+        }
+
+        if (characteristic.descriptors.isNotEmpty()) {
+            Text(text = "Descriptors", color = Color.LightGray)
+        }
+
+        characteristic.descriptors.forEach { descriptor ->
+            if (descriptor.value != null) {
+                Text(text = descriptor.uuid.toString())
+                Text(text = descriptor.value.decodeToString())
+            }
+        }
     }
 }
