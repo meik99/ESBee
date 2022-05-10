@@ -18,6 +18,7 @@ class ProcessorInfoViewModel : ViewModel() {
         gatt?.services?.forEach {
             it.characteristics.forEach { characteristic ->
                 if (characteristic.uuid.toString() == "00002a1c-0000-1000-8000-00805f9b34fb") {
+                    gatt.setCharacteristicNotification(characteristic, true)
                     gatt.readCharacteristic(characteristic)
                 }
             }
@@ -30,10 +31,8 @@ class ProcessorInfoViewModel : ViewModel() {
         characteristic: BluetoothGattCharacteristic?,
         status: Int
     ) {
-        if (characteristic != null && characteristic.uuid.toString() == "00002a1c-0000-1000-8000-00805f9b34fb") {
-            Log.d(ProcessorInfoViewModel::class.java.simpleName, if (characteristic.value != null) characteristic.value.toString() else "")
-        }
         if (gatt != null && characteristic != null) {
+            gatt.readCharacteristic(characteristic)
             _services.postValue(gatt.services)
         }
     }

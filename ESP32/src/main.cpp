@@ -40,8 +40,9 @@ void setup() {
 }
 
 void loop() {
-    characteristicTemperature->setValue("10°C");
+    int temp = random(-20, 40);
+    characteristicTemperature->setValue(std::to_string(temp));
     characteristicTemperature->notify();
-
+    Serial.printf("%d\n", temp);
     delay(1000);
 }

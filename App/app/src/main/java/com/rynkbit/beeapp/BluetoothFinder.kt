@@ -90,15 +90,28 @@ fun BluetoothScanLifecycleManager(scanner: BluetoothScanner) {
 fun BluetoothDeviceList(bluetoothDevices: List<BluetoothDevice>, navController: NavHostController) {
     Row {
         LazyColumn {
-            items(bluetoothDevices) {
-                val context = LocalContext.current
+            items(bluetoothDevices) { bluetoothDevice ->
+            val context = LocalContext.current
                 BluetoothDeviceItem(
-                    name = it.getAliasOrName(),
-                    address = it.address,
+                    name = bluetoothDevice.getAliasOrName(),
+                    address = bluetoothDevice.address,
                     onClick = {
-                        GattCallback().onConnectionChanged.add(
-                            navigateToManagement(it, navController))
-                        it.connectGatt(context, false, GattCallback())
+                        GattCallback().onConnectionChanged.add(fun(
+                            gatt: BluetoothGatt?,
+                            status: Int,
+                            newState: Int
+                        ) {
+                            if (newState == BluetoothProfile.STATE_CONNECTED && gatt != null) {
+                                GattCallback().onConnectionChanged.clear()
+                                CoroutineScope(Dispatchers.Main).launch {
+                                    BluetoothConnection().bluetoothDevice = bluetoothDevice
+                                    BluetoothConnection().bluetoothGatt = gatt
+                                    navController.navigate("processor/info")
+                                }
+                            }
+                            Log.d("BluetoothFinder", "onConnectionStateChange: $status, $newState")
+                        })
+                        bluetoothDevice.connectGatt(context, false, GattCallback())
                     }
                 )
             }
@@ -116,22 +129,6 @@ fun BluetoothDeviceList(bluetoothDevices: List<BluetoothDevice>, navController: 
                 Modifier.size(64.dp, 64.dp)
             )
         }
-    }
-}
-
-fun navigateToManagement(
-    bluetoothDevice: BluetoothDevice,
-    navController: NavHostController
-): (BluetoothGatt?, Int, Int) -> Unit {
-    return fun(gatt: BluetoothGatt?, status: Int, newState: Int) {
-        if (newState == BluetoothProfile.STATE_CONNECTED && gatt != null) {
-            CoroutineScope(Dispatchers.Main).launch {
-                BluetoothConnection().bluetoothDevice = bluetoothDevice
-                BluetoothConnection().bluetoothGatt = gatt
-                navController.navigate("processor/info")
-            }
-        }
-        Log.d("BluetoothFinder", "onConnectionStateChange: $status, $newState")
     }
 }
 

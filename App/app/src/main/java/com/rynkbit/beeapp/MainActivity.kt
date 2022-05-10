@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -17,6 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import com.rynkbit.beeapp.processor.ProcessorInfo
 import com.rynkbit.beeapp.ui.theme.BeeAppTheme
 
+@ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @ExperimentalPermissionsApi
 class MainActivity : ComponentActivity() {
@@ -30,6 +32,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @SuppressLint("UnrememberedMutableState")
 @ExperimentalPermissionsApi
