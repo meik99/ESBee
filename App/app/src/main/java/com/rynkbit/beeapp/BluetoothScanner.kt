@@ -67,6 +67,8 @@ class BluetoothScanner(private val bluetoothManager: BluetoothManager?) : ScanCa
 
     @SuppressLint("MissingPermission")
     fun stop() {
+        bluetoothDeviceMap.clear()
+
         val bluetoothAdapter: BluetoothAdapter? = bluetoothManager?.adapter
         val bluetoothLeScanner: BluetoothLeScanner? = bluetoothAdapter?.bluetoothLeScanner
 

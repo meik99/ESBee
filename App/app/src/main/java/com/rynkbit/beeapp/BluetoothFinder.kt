@@ -7,13 +7,8 @@ import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.getValue
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,6 +21,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleRegistry
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -88,6 +84,9 @@ fun BluetoothScanLifecycleManager(scanner: BluetoothScanner) {
 @ExperimentalMaterialApi
 @Composable
 fun BluetoothDeviceList(bluetoothDevices: List<BluetoothDevice>, navController: NavHostController) {
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+
     Row {
         LazyColumn {
             items(bluetoothDevices) { bluetoothDevice ->
@@ -107,6 +106,13 @@ fun BluetoothDeviceList(bluetoothDevices: List<BluetoothDevice>, navController: 
                                     BluetoothConnection().bluetoothDevice = bluetoothDevice
                                     BluetoothConnection().bluetoothGatt = gatt
                                     navController.navigate("processor/info")
+                                }
+                            } else {
+                                scope.launch {
+                                    snackbarHostState.showSnackbar(
+                                        "Could not connect to device. Status: $status, State: $newState",
+                                        duration = SnackbarDuration.Long
+                                    )
                                 }
                             }
                             Log.d("BluetoothFinder", "onConnectionStateChange: $status, $newState")
@@ -130,6 +136,8 @@ fun BluetoothDeviceList(bluetoothDevices: List<BluetoothDevice>, navController: 
             )
         }
     }
+
+    SnackbarHost(hostState = snackbarHostState)
 }
 
 @ExperimentalMaterialApi
