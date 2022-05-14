@@ -137,7 +137,7 @@ fun BluetoothDeviceList(bluetoothDevices: List<BluetoothDevice>, navController: 
         }
     }
 
-    SnackbarHost(hostState = snackbarHostState)
+    SnackbarHost(hostState = snackbarHostState, modifier = Modifier.fillMaxWidth().wrapContentHeight(align = Alignment.Bottom))
 }
 
 @ExperimentalMaterialApi
