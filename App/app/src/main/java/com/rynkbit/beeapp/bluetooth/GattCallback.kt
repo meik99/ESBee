@@ -11,6 +11,8 @@ class GattCallback private constructor(): BluetoothGattCallback() {
     val onServiceDiscovered: MutableList<(gatt: BluetoothGatt?, status: Int) -> Unit> = mutableListOf()
     val onCharacteristicRead: MutableList<(gatt: BluetoothGatt?, characteristic: BluetoothGattCharacteristic?, status: Int) -> Unit> = mutableListOf()
     val onDescriptorRead: MutableList<(gatt: BluetoothGatt?, descriptor: BluetoothGattDescriptor?, status: Int) -> Unit> = mutableListOf()
+    val onCharacteristicChanged: MutableList<(gatt: BluetoothGatt?, characteristic: BluetoothGattCharacteristic?) -> Unit> = mutableListOf()
+    val onServiceChanged: MutableList<(gatt: BluetoothGatt) -> Unit> = mutableListOf()
 
     companion object {
         private val instance = GattCallback()
@@ -60,15 +62,15 @@ class GattCallback private constructor(): BluetoothGattCallback() {
         characteristic: BluetoothGattCharacteristic?
     ) {
         super.onCharacteristicChanged(gatt, characteristic)
-        onCharacteristicRead.forEach { observer ->
-            observer(gatt, characteristic, 0)
+        onCharacteristicChanged.forEach { observer ->
+            observer(gatt, characteristic)
         }
     }
 
     override fun onServiceChanged(gatt: BluetoothGatt) {
         super.onServiceChanged(gatt)
-        onServiceDiscovered.forEach { observer ->
-            observer(gatt, 0)
+        onServiceChanged.forEach { observer ->
+            observer(gatt)
         }
     }
 }

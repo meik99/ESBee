@@ -2,49 +2,103 @@ package com.rynkbit.beeapp.processor
 
 import android.annotation.SuppressLint
 import android.bluetooth.*
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.rynkbit.beeapp.bluetooth.BluetoothConnection
+
+const val uuidPumpControl = "00002a9f-0000-1000-8000-00805f9b34fb"
+const val uuidTemperature = "00002a1c-0000-1000-8000-00805f9b34fb"
+const val uuidBeeService = "0000181a-0000-1000-8000-00805f9b34fb"
 
 class ProcessorInfoViewModel : ViewModel() {
-    val services: LiveData<List<BluetoothGattService>>
-        get() = _services
+    val temperature: LiveData<String>
+        get() = _temperature
 
-    private val _services: MutableLiveData<List<BluetoothGattService>> = MutableLiveData()
+    private val _temperature: MutableLiveData<String> = MutableLiveData()
+
+    val pumpState: LiveData<String>
+        get() = _pumpState
+
+    private val _pumpState: MutableLiveData<String> = MutableLiveData("OFF")
+
+    val pumpEnabled: LiveData<Boolean>
+        get() = _pumpEnabled
+
+    private val _pumpEnabled: MutableLiveData<Boolean> = MutableLiveData(false)
+
+    private var pumpCharacteristic: BluetoothGattCharacteristic? = null
 
     @SuppressLint("MissingPermission")
     fun onServiceDiscovered(gatt: BluetoothGatt?, status: Int) {
         gatt?.services?.forEach {
             it.characteristics.forEach { characteristic ->
-                if (characteristic.uuid.toString() == "00002a1c-0000-1000-8000-00805f9b34fb") {
+                if (characteristic.uuid.toString() == uuidTemperature) {
                     gatt.setCharacteristicNotification(characteristic, true)
                     gatt.readCharacteristic(characteristic)
+                }
+
+                if (characteristic.uuid.toString() == uuidPumpControl) {
+                    gatt.setCharacteristicNotification(characteristic, true)
+                    gatt.readCharacteristic(characteristic)
+                    pumpCharacteristic = characteristic
+                }
+            }
+        }
+    }
+
+    fun onCharacteristicRead(
+        gatt: BluetoothGatt?,
+        characteristic: BluetoothGattCharacteristic?,
+        status: Int
+    ) {
+        updateCharacteristicValues(gatt, characteristic)
+    }
+
+    fun onCharacteristicChanged(
+        gatt: BluetoothGatt?,
+        characteristic: BluetoothGattCharacteristic?
+    ) {
+        updateCharacteristicValues(gatt, characteristic)
+    }
+
+    private fun updateCharacteristicValues(gatt: BluetoothGatt?, characteristic: BluetoothGattCharacteristic?) {
+        if (gatt != null && characteristic != null) {
+            when (characteristic.uuid.toString()) {
+                uuidTemperature -> {
+                    _temperature.postValue(characteristic.value.decodeToString())
+                }
+                uuidPumpControl -> {
+                    _pumpState.postValue(characteristic.value.decodeToString())
+                    _pumpEnabled.postValue(true)
                 }
             }
         }
     }
 
     @SuppressLint("MissingPermission")
-    fun onCharacteristicRead(
-        gatt: BluetoothGatt?,
-        characteristic: BluetoothGattCharacteristic?,
-        status: Int
-    ) {
-        if (gatt != null && characteristic != null) {
-            gatt.readCharacteristic(characteristic)
-            _services.postValue(gatt.services)
+    private fun writePumpControl(text: String) {
+        BluetoothConnection().bluetoothGatt?.let { gatt ->
+            pumpCharacteristic?.let { characteristic ->
+                characteristic.writeType = BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
+                characteristic.value = text.encodeToByteArray()
+                gatt.writeCharacteristic(characteristic)
+            }
         }
     }
 
-    @SuppressLint("MissingPermission")
-    fun onDescriptorRead(
-        gatt: BluetoothGatt?,
-        descriptor: BluetoothGattDescriptor?,
-        status: Int
-    ) {
-        if (gatt != null && descriptor != null) {
-            _services.postValue(gatt.services)
+    fun togglePump() {
+        val enabled = pumpEnabled.value ?: false
+        val state = pumpState.value ?: "No read"
+
+        if (!enabled) {
+            return
+        }
+
+        if (state == "OFF") {
+            writePumpControl("ON")
+        } else {
+            writePumpControl("OFF")
         }
     }
 }

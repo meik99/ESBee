@@ -7,12 +7,12 @@
 
 #include <string>
 
-#define SENSOR_SERVICE_UUID "181A"
-// #define SENSOR_SERVICE_UUID "83b5cd4d-69ac-4d05-951c-009b0f0db3d3"
+#define BEE_SERVICE_UUID "181A"
 #define CHARACTERISTIC_TEMPERATURE_UUID "2A1C"
-//#define CHARACTERISTIC_TEMPERATURE_UUID "28ecc560-82ed-4438-98ac-9870c977cb44"
+#define CHARACTERISTIC_PUMP_CONTROL_UUID "2A9F"
 
 BLECharacteristic *characteristicTemperature;
+BLECharacteristic *characteristicPumpControl;
 
 void setup() {
     Serial.begin(115200);
@@ -24,25 +24,49 @@ void setup() {
     BLEDevice::init("Bee-saver-tron 3000");
     BLEServer *server = BLEDevice::createServer();
     BLEAdvertising *advertising = BLEDevice::getAdvertising();
-    BLEService *service = server->createService(SENSOR_SERVICE_UUID);
+    BLEService *sensorService = server->createService(BEE_SERVICE_UUID);
 
-    characteristicTemperature = service->createCharacteristic(
+    characteristicTemperature = sensorService->createCharacteristic(
             CHARACTERISTIC_TEMPERATURE_UUID,
             BLECharacteristic::PROPERTY_READ |
             BLECharacteristic::PROPERTY_NOTIFY
     );
 
-    service->start();
+    characteristicPumpControl = sensorService->createCharacteristic(
+            CHARACTERISTIC_PUMP_CONTROL_UUID,
+            BLECharacteristic::PROPERTY_READ |
+            BLECharacteristic::PROPERTY_NOTIFY |
+            BLECharacteristic::PROPERTY_WRITE
+    );
 
-    advertising->addServiceUUID(SENSOR_SERVICE_UUID);
+    sensorService->start();
+
+    advertising->addServiceUUID(BEE_SERVICE_UUID);
     advertising->setScanResponse(true);
+
+    advertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
+    advertising->setMinPreferred(0x12);
+
     BLEDevice::startAdvertising();
 }
+
+std::string lastControlValue = "OFF";
 
 void loop() {
     int temp = random(-20, 40);
     characteristicTemperature->setValue(std::to_string(temp));
     characteristicTemperature->notify();
-    Serial.printf("%d\n", temp);
+    Serial.println(std::to_string(temp).c_str());
+
+    std::string pumpControl = characteristicPumpControl->getValue();
+
+    if (pumpControl.compare(lastControlValue) != 0) {
+        Serial.println(pumpControl.c_str());
+        lastControlValue = pumpControl;
+    }
+
+    characteristicPumpControl->setValue(lastControlValue);
+    characteristicPumpControl->notify();
+
     delay(1000);
 }
