@@ -14,6 +14,21 @@
 BLECharacteristic *characteristicTemperature;
 BLECharacteristic *characteristicPumpControl;
 
+class RestartAdvertisingCallback: public BLEServerCallbacks {
+    void onConnect(BLEServer* server) {
+        Serial.println("device connected");
+    };
+
+    void onDisconnect(BLEServer* server) {
+        Serial.println("device disconnected, restarting advertising");
+        delay(500);
+        BLEDevice::startAdvertising();
+        server->startAdvertising();
+    }
+};
+
+std::string lastControlValue = "OFF";
+
 void setup() {
     Serial.begin(115200);
 
@@ -39,6 +54,7 @@ void setup() {
             BLECharacteristic::PROPERTY_WRITE
     );
 
+    server->setCallbacks(new RestartAdvertisingCallback());
     sensorService->start();
 
     advertising->addServiceUUID(BEE_SERVICE_UUID);
@@ -48,9 +64,10 @@ void setup() {
     advertising->setMinPreferred(0x12);
 
     BLEDevice::startAdvertising();
-}
 
-std::string lastControlValue = "OFF";
+    characteristicPumpControl->setValue(lastControlValue);
+    characteristicPumpControl->notify();
+}
 
 void loop() {
     int temp = random(-20, 40);
