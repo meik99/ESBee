@@ -42,6 +42,7 @@ class ProcessorInfoViewModel : ViewModel() {
                     gatt.setCharacteristicNotification(characteristic, true)
                     gatt.readCharacteristic(characteristic)
                     pumpCharacteristic = characteristic
+                    _pumpEnabled.postValue(true)
                 }
             }
         }
@@ -70,7 +71,6 @@ class ProcessorInfoViewModel : ViewModel() {
                 }
                 uuidPumpControl -> {
                     _pumpState.postValue(characteristic.value.decodeToString())
-                    _pumpEnabled.postValue(true)
                 }
             }
         }

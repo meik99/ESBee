@@ -37,7 +37,6 @@ fun ProcessorInfo() {
             when (event) {
                 Lifecycle.Event.ON_RESUME -> connect(viewModel)
                 Lifecycle.Event.ON_PAUSE -> disconnect(viewModel)
-
             }
         }
 
@@ -51,14 +50,6 @@ fun ProcessorInfo() {
     val temperature by viewModel.temperature.observeAsState("No read")
 
     Column {
-        Button(onClick = {
-            disconnect(viewModel)
-        }, modifier = Modifier
-            .fillMaxWidth()
-            .padding(defaultPadding)) {
-            Text(text = "Disconnect")
-        }
-
         LazyVerticalGrid(cells = GridCells.Fixed(2)) {
             item {
                 TemperatureCard(temperature)
