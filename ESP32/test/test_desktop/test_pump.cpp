@@ -46,11 +46,11 @@ void test_pump(void) {
     MockPinIO *mockPinIo = new MockPinIO();
     Pump *pump = new Pump(mockPinIo, testPumpPin);
 
-    TEST_ASSERT(!mockPinIo->map[testPumpPin])
+    TEST_ASSERT(!mockPinIo->map[testPumpPin]);
 
     pump->start(0);
 
-    TEST_ASSERT(mockPinIo->map[testPumpPin])
+    TEST_ASSERT(mockPinIo->map[testPumpPin]);
 
     // Speed is 1/2 ml / s so double the time
     currentTime = 2 * milliliters * 1000;
@@ -62,7 +62,7 @@ void test_pump(void) {
     TEST_ASSERT(pump->isPumping());
 
     pump->stop();
-    TEST_ASSERT(!mockPinIo->map[testPumpPin])
+    TEST_ASSERT(!mockPinIo->map[testPumpPin]);
     TEST_ASSERT(!pump->isPumping());
 }
 
