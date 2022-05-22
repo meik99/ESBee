@@ -13,13 +13,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b3c09da-1ac8-44e1-ad28-a46389a7db5f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ESP32/src/bluetooth_snippet" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ESP32/src/bluetooth.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ESP32/src/bluetooth.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ESP32/src/bluetooth.h" beforeDir="false" afterPath="$PROJECT_DIR$/ESP32/src/bluetooth.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ESP32/src/control.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ESP32/src/control.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ESP32/src/control.h" beforeDir="false" afterPath="$PROJECT_DIR$/ESP32/src/control.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ESP32/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ESP32/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -170,7 +164,7 @@
       <workItem from="1651332743014" duration="132000" />
       <workItem from="1651913579087" duration="33000" />
       <workItem from="1652716326507" duration="10000" />
-      <workItem from="1653222736440" duration="1461000" />
+      <workItem from="1653222736440" duration="2464000" />
     </task>
     <servers />
   </component>
