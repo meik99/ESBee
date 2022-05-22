@@ -1,89 +1,56 @@
-//#include "control.h"
+#include "control.h"
+#include "bluetooth.h"
 
-#include <Arduino.h>
-#include <BLEDevice.h>
-#include <BLEUtils.h>
-#include <BLEServer.h>
+#define ONE_HOUR_IN_MILLIS (1 * 60 * 60 * 1000)
+#define FIFTEEN_MINUTES_IN_MILLIS (15 * 60 * 1000)
 
-#include <string>
-
-#define BEE_SERVICE_UUID "181A"
-#define CHARACTERISTIC_TEMPERATURE_UUID "2A1C"
-#define CHARACTERISTIC_PUMP_CONTROL_UUID "2A9F"
-
-BLECharacteristic *characteristicTemperature;
-BLECharacteristic *characteristicPumpControl;
-
-class RestartAdvertisingCallback: public BLEServerCallbacks {
-    void onConnect(BLEServer* server) {
-        Serial.println("device connected");
-    };
-
-    void onDisconnect(BLEServer* server) {
-        Serial.println("device disconnected, restarting advertising");
-        delay(500);
-        BLEDevice::startAdvertising();
-        server->startAdvertising();
-    }
-};
-
-std::string lastControlValue = "OFF";
+long lastPumpCycle = 0;
+long lastSensorReadings = -ONE_HOUR_IN_MILLIS;
+long fanStartTime = 0;
 
 void setup() {
     Serial.begin(115200);
 
-    while(!Serial) {
+    while (!Serial) {
         delay(100);
     }
 
-    BLEDevice::init("Bee-saver-tron 3000");
-    BLEServer *server = BLEDevice::createServer();
-    BLEAdvertising *advertising = BLEDevice::getAdvertising();
-    BLEService *sensorService = server->createService(BEE_SERVICE_UUID);
-
-    characteristicTemperature = sensorService->createCharacteristic(
-            CHARACTERISTIC_TEMPERATURE_UUID,
-            BLECharacteristic::PROPERTY_READ |
-            BLECharacteristic::PROPERTY_NOTIFY
-    );
-
-    characteristicPumpControl = sensorService->createCharacteristic(
-            CHARACTERISTIC_PUMP_CONTROL_UUID,
-            BLECharacteristic::PROPERTY_READ |
-            BLECharacteristic::PROPERTY_NOTIFY |
-            BLECharacteristic::PROPERTY_WRITE
-    );
-
-    server->setCallbacks(new RestartAdvertisingCallback());
-    sensorService->start();
-
-    advertising->addServiceUUID(BEE_SERVICE_UUID);
-    advertising->setScanResponse(true);
-
-    advertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
-    advertising->setMinPreferred(0x12);
-
-    BLEDevice::startAdvertising();
-
-    characteristicPumpControl->setValue(lastControlValue);
-    characteristicPumpControl->notify();
+    setupControl();
+    initBleServer();
+    lastPumpCycle = millis();
 }
 
 void loop() {
-    int temp = random(-20, 40);
-    characteristicTemperature->setValue(std::to_string(temp));
-    characteristicTemperature->notify();
-    Serial.println(std::to_string(temp).c_str());
-
-    std::string pumpControl = characteristicPumpControl->getValue();
-
-    if (pumpControl.compare(lastControlValue) != 0) {
-        Serial.println(pumpControl.c_str());
-        lastControlValue = pumpControl;
+    if (millis() - lastSensorReadings >= ONE_HOUR_IN_MILLIS) {
+        SensorReadings sensorReadings = readHumidityAndTemperature();
+        setTemperature(sensorReadings.temperature);
+        setHumidity(sensorReadings.humidity);
+        lastSensorReadings = millis();
     }
 
-    characteristicPumpControl->setValue(lastControlValue);
-    characteristicPumpControl->notify();
+    if (getPumpControl() == PUMP_ON) {
+        getPump()->start(millis());
+    } else if (getPumpControl() == PUMP_OFF) {
+        getPump()->stop();
+    }
 
-    delay(1000);
+    if (millis() - lastPumpCycle >= ONE_HOUR_IN_MILLIS) {
+        getPump()->start(millis());
+        delay(1000);
+
+        if(getPumpControl() == PUMP_OFF) {
+            getPump()->stop();
+        }
+
+        lastPumpCycle = millis();
+        fanStartTime = millis();
+    }
+
+    if (millis() - fanStartTime < FIFTEEN_MINUTES_IN_MILLIS) {
+        getRealIO()->on(FAN);
+    } else {
+        getRealIO()->off(FAN);
+    }
+
+    delay(100);
 }

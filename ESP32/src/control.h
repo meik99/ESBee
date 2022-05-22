@@ -16,11 +16,14 @@
 #define HUMIDITY_SENSOR 25
 #define FAN 26
 
+struct SensorReadings {
+    float humidity;
+    float temperature;
+};
 
-void testPump(RealIO *realIO);
-void testFan(RealIO *realIO);
-void readHumidityAndTemperature();
+SensorReadings readHumidityAndTemperature();
 void setupControl();
-void runControl();
+Pump* getPump();
+RealIO* getRealIO();
 
 #endif //ESP32_CONTROL_H
