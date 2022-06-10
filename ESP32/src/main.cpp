@@ -12,7 +12,6 @@
 
 long lastPumpCycle = -ONE_HOUR;
 long lastSensorReadingsTime = -ONE_HOUR;
-long lastPumpCycle = 0;
 long fanStartTime = 0;
 long lastLogDump = -ONE_MINUTE;
 
