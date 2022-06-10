@@ -1,12 +1,49 @@
 #include "control.h"
 #include "bluetooth.h"
 
-#define ONE_HOUR_IN_MILLIS (1 * 60 * 60 * 1000)
-#define FIFTEEN_MINUTES_IN_MILLIS (15 * 60 * 1000)
+#define ONE_HOUR_IN_MILLIS /*(10*1000)*/ (1 * 60 * 60 * 1000)
+#define FIVE_MINUTES_IN_MILLIS /*(1*1000)*/ (5 * 60 * 1000)
 
-long lastPumpCycle = 0;
-long lastSensorReadings = -ONE_HOUR_IN_MILLIS;
+long lastPumpCycle = -ONE_HOUR_IN_MILLIS-1000;
+long lastSensorReadingsTime = -ONE_HOUR_IN_MILLIS-1000;
 long fanStartTime = 0;
+SensorReadings lastSensorReadings;
+int pumpPowerDivisor = 1;
+
+int getPumpDivisor(float temperature) {
+    if (temperature <= 10.0f) {
+        return 1000;
+    } else if(temperature <= 15.0f) {
+        return 3;
+    } else if(temperature <= 20.0f) {
+        return 2;
+    } else if(temperature <= 25.0f) {
+        return 1;
+    } else if(temperature <= 30.0f) {
+        return 2;
+    }
+    return 1000;
+}
+
+float getPumpAmount(float temperature) {
+    if (temperature <= 10.0f) {
+        return 0.0f;
+    } else if(temperature <= 15.0f) {
+        return 0.5f;
+    } else if(temperature <= 20.0f) {
+        return 1.0f;
+    } else if(temperature <= 25.0f) {
+        return 1.5f;
+    } else if(temperature <= 30.0f) {
+        return 1.0f;
+    }
+
+    return 0.0f;
+}
+
+bool mustContinuePumping(float temperature) {
+    return getPump()->pumpedMilliliter(millis()) < getPumpAmount(temperature);
+}
 
 void setup() {
     Serial.begin(115200);
@@ -17,15 +54,15 @@ void setup() {
 
     setupControl();
     initBleServer();
-    lastPumpCycle = millis();
 }
 
 void loop() {
-    if (millis() - lastSensorReadings >= ONE_HOUR_IN_MILLIS) {
+    if (millis() - lastSensorReadingsTime >= ONE_HOUR_IN_MILLIS) {
         SensorReadings sensorReadings = readHumidityAndTemperature();
+        lastSensorReadings = sensorReadings;
         setTemperature(sensorReadings.temperature);
         setHumidity(sensorReadings.humidity);
-        lastSensorReadings = millis();
+        lastSensorReadingsTime = millis();
     }
 
     if (getPumpControl() == PUMP_ON) {
@@ -36,7 +73,10 @@ void loop() {
 
     if (millis() - lastPumpCycle >= ONE_HOUR_IN_MILLIS) {
         getPump()->start(millis());
-        delay(1000);
+
+        while(mustContinuePumping(lastSensorReadings.temperature)) {
+            delay(100);
+        }
 
         if(getPumpControl() == PUMP_OFF) {
             getPump()->stop();
@@ -46,7 +86,7 @@ void loop() {
         fanStartTime = millis();
     }
 
-    if (millis() - fanStartTime < FIFTEEN_MINUTES_IN_MILLIS) {
+    if (millis() - fanStartTime < FIVE_MINUTES_IN_MILLIS) {
         getRealIO()->on(FAN);
     } else {
         getRealIO()->off(FAN);
