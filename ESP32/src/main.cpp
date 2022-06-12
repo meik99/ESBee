@@ -1,6 +1,7 @@
 #include "control.h"
 #include "bluetooth.h"
 #include "log.h"
+#include "gsm.h"
 
 #define ONE_SECOND 1000
 #define ONE_MINUTE (60 * ONE_SECOND)
@@ -21,6 +22,20 @@ std::string lastPumpControl = "";
 
 Log logger;
 SensorReadings lastSensorReadings;
+GSM gsm;
+
+void setup() {
+    Serial.begin(115200);
+
+    while (!Serial) {
+        delay(100);
+    }
+
+    setupControl();
+    initBleServer();
+
+    gsm.init();
+}
 
 float getPumpAmount(float temperature) {
     if (temperature <= 10.0f) {
@@ -42,20 +57,9 @@ bool mustContinuePumping(float temperature) {
     return getPump()->pumpedMilliliter(millis()) < getPumpAmount(temperature);
 }
 
-void setup() {
-    Serial.begin(115200);
-
-    while (!Serial) {
-        delay(100);
-    }
-
-    setupControl();
-    initBleServer();
-}
-
 void loop() {
     if (millis() - lastSensorReadingsTime >= ONE_HOUR) {
-        logger.i("reading humidity sensor, last read was at " + std::to_string(lastSensorReadings) + " current time is " +
+        logger.i("reading humidity sensor, last read was at " + std::to_string(lastSensorReadingsTime) + " current time is " +
               std::to_string(millis()));
         SensorReadings sensorReadings = readHumidityAndTemperature();
         lastSensorReadings = sensorReadings;
