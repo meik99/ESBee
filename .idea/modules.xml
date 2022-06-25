@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/ESBee.iml" filepath="$PROJECT_DIR$/.idea/ESBee.iml" />
       <module fileurl="file://$PROJECT_DIR$/ESP32/ESP32.iml" filepath="$PROJECT_DIR$/ESP32/ESP32.iml" />
       <module fileurl="file://$PROJECT_DIR$/Server/Server.iml" filepath="$PROJECT_DIR$/Server/Server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Thesis/Thesis.iml" filepath="$PROJECT_DIR$/Thesis/Thesis.iml" />
       <module fileurl="file://$PROJECT_DIR$/Web/Web.iml" filepath="$PROJECT_DIR$/Web/Web.iml" />
     </modules>
   </component>
