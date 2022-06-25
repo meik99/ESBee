@@ -13,6 +13,7 @@
 \addbibresource{main.bib}
 
 \usepackage[skip=10pt plus1pt, indent=0pt]{parskip}
+\usepackage{hyperref}
 
 \title{Autonomously distributing formic acid \linebreak to treat bee hives against varroa mites }
 \author{Michael Rynkiewicz, k11736476}
@@ -63,6 +64,50 @@
     Since active components are used, more control and the possibility of observing a bee hive over distance can be increased.
 
     \section{Background}\label{sec:background}
+
+    This solution heavily uses active components, meaning components that require an electric current.
+    The main component is a microprocessor, which controls other active parts.
+    Used technologies are listed and discussed in this section.
+
+    \textbf{Microprocessor}: In order to control peripheral components, a processor is needed.
+    This processor must have a low power consumption and must be programmable.
+    Furthermore, it is required that some connectivity options are available.
+    For these reasons, the ESP32\footnote{\url{https://www.espressif.com/en/products/socs/esp32}} processor has been chosen.
+    It can be programmed using the C++ programming language and has integrated support for Bluetooth and WiFi connections.
+    Additionally, it is cheap and has a large community, which increases the amount of resources for support and development.
+
+    \textbf{C++ and PlatformIO}: C++\footnote{\url{https://en.wikipedia.org/wiki/C\%2B\%2B}} is a well known programming language.
+    Due to its age and not having a high abstraction from the hardware, it is often regarded as being more complicated to work with than other, more modern languages.
+    However, there is not yet sufficient support for the ESP32 in other languages.
+    There are projects such as TinyGo\footnote{\url{https://tinygo.org/}} or Espruino\footnote{\url{https://www.espruino.com/ESP32}}.
+    They allow running code written in Golang or Javascript respectively on an ESP32, but they do not yet implement the necessary features such as support for bluetooth connections.
+
+    PlatformIO\footnote{\url{https://platformio.org/}} is a C++ framework used to ease the development of software for the ESP32.
+    It integrates a package manager to automatically download and include third party libraries.
+    Furthermore, it includes an array of tooling to compile code to an executable binary and flash or install it on the microprocessor.
+
+    \textbf{Android}: Android\footnote{\url{https://www.android.com/}} is a widely used operating system primarily for smartphones.
+    Applications for Android are usually written in either the Java or Kotlin programming languages.
+    In this project, such an application is used to provide a user interface for the microprocessor.
+    
+    \textbf{DHT11}: A requirement of this project is to measure the outside temperature and react to it.
+    In order to implement that requirement a temperature sensor is needed.
+    The DHT11\footnote{\url{https://learn.adafruit.com/dht}} is a temperature and humidity sensor, that is widely used for such projects.
+
+    \textbf{Powerbank}: A powerbank is a component that is able to store and release an electric charge.
+    Since bee hives are typically not in the vicinity of power outlets, a powerbank is needed to provide electrical power to the active components of this system.
+    They often hold between 5 A and 30 A of charge.
+
+    \textbf{Relay}: A relay is an electrical component, that can open or close an electric circuit depending on some electrical input.
+    An important aspect of a relay is, that the circuit controlling it and the circuit that is being controlled are physically seperate.
+    This allows controlling a circuit without risking damage to the controlling one.
+    For example, a circuit that must be limited to 5 V of direct current (DC) to protect components can safely control a circuit that uses 240 V of alternating current (AC).
+
+    \textbf{Peristaltic pump}: A peristaltic pump is used to transport the formic acid from a tank to the bee hive.
+    The advantages of such a pump us that it does not have to be submerged in the fluid to be pumped.
+    It can also be controlled by supplying or not supplying an electric current with low voltages such as the 5 V current typically provided by a powerbank.
+
+    \section{Requirements and implementation}\label{sec:requirements-and-implementation}
 
     \newpage
     \printbibliography
