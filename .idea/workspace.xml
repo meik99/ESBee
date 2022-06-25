@@ -13,13 +13,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b3c09da-1ac8-44e1-ad28-a46389a7db5f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Thesis/src/main.bib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Thesis/src/main.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ESBee.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ESBee.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ESP32/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ESP32/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Thesis/src/main.bib" beforeDir="false" afterPath="$PROJECT_DIR$/Thesis/src/main.bib" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Thesis/src/main.tex" beforeDir="false" afterPath="$PROJECT_DIR$/Thesis/src/main.tex" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,10 +37,17 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature/fan" />
+        <entry key="$PROJECT_DIR$" value="gsm" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="main" />
+      </list>
+    </option>
   </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="true" />
@@ -98,6 +102,7 @@
     "WebServerToolWindowFactoryState": "false",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
     "go.import.settings.migrated": "true",
     "jdk.selected.JAVA_MODULE": "18",
     "jdk.selected.LATEX_MODULE_TYPE": "Native TeX Live SDK",
@@ -116,6 +121,31 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="BIBTEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory">
+      <texify-bibtex>
+        <compiler />
+        <compiler-path />
+        <compiler-arguments />
+        <envs />
+        <main-file>$USER_HOME$</main-file>
+        <aux-dir>$USER_HOME$</aux-dir>
+      </texify-bibtex>
+      <method v="2" />
+    </configuration>
+    <configuration name="main bibliography" type="BIBTEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory">
+      <texify-bibtex>
+        <compiler>BIBER</compiler>
+        <compiler-path />
+        <compiler-arguments />
+        <envs>
+          <env name="BIBINPUTS" value="$PROJECT_DIR$/Thesis/src" />
+          <env name="BSTINPUTS" value="$PROJECT_DIR$/Thesis/src:" />
+        </envs>
+        <main-file>$PROJECT_DIR$/Thesis/src/main.tex</main-file>
+        <aux-dir>$PROJECT_DIR$/Thesis/out</aux-dir>
+      </texify-bibtex>
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="ESBee" />
       <working_directory value="$PROJECT_DIR$" />
@@ -133,31 +163,6 @@
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="BIBTEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory">
-      <texify-bibtex>
-        <compiler />
-        <compiler-path />
-        <compiler-arguments />
-        <envs />
-        <main-file />
-        <aux-dir />
-      </texify-bibtex>
-      <method v="2" />
-    </configuration>
-    <configuration name="main bibliography" type="BIBTEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory">
-      <texify-bibtex>
-        <compiler>BIBER</compiler>
-        <compiler-path />
-        <compiler-arguments />
-        <envs>
-          <env name="BIBINPUTS" value="$PROJECT_DIR$/Thesis/src" />
-          <env name="BSTINPUTS" value="$PROJECT_DIR$/Thesis/src:" />
-        </envs>
-        <main-file>$PROJECT_DIR$/Thesis/src/main.tex</main-file>
-        <aux-dir>$PROJECT_DIR$/Thesis/out</aux-dir>
-      </texify-bibtex>
       <method v="2" />
     </configuration>
     <configuration name="Angular Application" type="JavascriptDebugType" uri="http://localhost:4200">
@@ -179,7 +184,7 @@
         <output-format>PDF</output-format>
         <latex-distribution>TEXLIVE</latex-distribution>
         <has-been-run>true</has-been-run>
-        <bib-run-config>[]</bib-run-config>
+        <bib-run-config>[BibTeX.main bibliography]</bib-run-config>
         <makeindex-run-config>[]</makeindex-run-config>
       </texify>
       <method v="2" />
@@ -209,6 +214,7 @@
       <item itemvalue="BibTeX.main bibliography" />
       <item itemvalue="JavaScript Debug.Angular Application" />
       <item itemvalue="LaTeX.main" />
+      <item itemvalue="Makefile Target.test" />
       <item itemvalue="npm.Angular CLI Server" />
     </list>
     <recent_temporary>
@@ -234,6 +240,7 @@
       <workItem from="1653222736440" duration="1461000" />
       <workItem from="1655746855937" duration="572000" />
       <workItem from="1653222736440" duration="2464000" />
+      <workItem from="1656137070428" duration="385000" />
     </task>
     <servers />
   </component>
