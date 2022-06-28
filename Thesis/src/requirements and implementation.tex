@@ -24,7 +24,6 @@ Furthermore, ample power must be supplied through the whole duration of the trea
     \end{tabular}
 \end{table}
 
-
 In order to fulfill this requirement, the power usage of the active components must be considered.
 In Table \ref{tab:power-consumption-of-active-components}, the power consumption of all used components is listed.
 Note well that solar panels have also been used.
@@ -43,9 +42,43 @@ At the same time, the fan is powered for one minute to distribute the formic aci
 Since the microprocessor offers a UI via a bluetooth connection, it is assumed that it runs active for the whole duration.
 The UI is discussed in a later section. %TODO: reference section as soon as it exists
 
-\begin{math}
+\begin{align}
     30\ s = 0.0083\ h \\
     4\ s = 0.0011\ h \\
-    1\ m = 0.0167\ h \\
-    Q_{dht11} = 500 * 10^{-3}\ A * 0.0083\ h + 150 * 10^{-6}\ A * (1 - 0.0083)\ h = 0.0043\ Ah\\
-\end{math}
+    1\ m = 0.0167\ h
+\end{align}
+
+This cycle repeats every hour.
+In order to calculate how long powerbanks with either $10\ Ah$ or $30\ Ah$ last, the above values are taken as percentages.
+I.e., the environmental sensor requires $500 * 10^{-3}\ A$, but only $0.83\ \%$ of the time.
+The resulting average current is then divided by the powerbank charges.
+
+\begin{align}
+    A_{dht11} = 500 * 10^{-3}\ A * 0.0083 + 150 * 10^{-6}\ A * (1 - 0.0083) = 0.0043\ A\\
+    A_{pump} = 300 * 10^{-3}\ A * 0.0011\  = 0.00033\ A\\
+    A_{pRelay} = 70 * 10^{-3}\ A * 0.0011\  = 0.000077\ A\\
+    A_{fan} = 200 * 10^{-3}\ A * 0.0167\  = 0.00334\ A\\
+    A_{fRelay} = 70 * 10^{-3}\ A * 0.0167\  = 0.00117\ A\\
+    A_{esp} = 68*10^{-3}\ A * 1\  = 0.068\ A \\
+    A = A_{dht11} + A_{pump} + A_{pRelay} + A_{fan} + A_{fRelay} = 0.0772\ A
+\end{align}
+\begin{align}
+    Q_{powerbank1} = 10\ Ah \\
+    Q_{powerbank2} = 30\ Ah \\
+    t_{powerbank1} = \frac{10\ Ah}{0.0772\ A} = 129.5\ h \\
+    n_{powerbank2} = \frac{30\ Ah}{0.0772\ A} = 388.6\ h
+\end{align}
+\begin{align}
+    129.5\ h = 5.4\ d \\
+    388.6\ h = 16.2\ d
+\end{align}
+
+As shown by the calculations above, a powerbank with a $10\ Ah$ charge, the system can be powered for $5.4$ days, less than half of what is required.
+A powerbank providing $30\ Ah$, the system is able to run for $16.2$ days, narrowly exceeding the requirement.
+Note that this does not include the solar panels.
+Using solar panels, the system might be able to run longer or indefinitely.
+However, the actual output of these panels is difficult to assume, as the stated value is only valid under ideal circumstances.
+These circumstances are not always given on cloudy days, if bee hives are located in woods, are covered by night or, trivially, in the night.
+Due to these circumstance, they are not considered in this calculation.
+In any case, if a powerbank with $30\ Ah$ is used, the requirement can be seen as fulfilled.
+
