@@ -12,11 +12,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b3c09da-1ac8-44e1-ad28-a46389a7db5f" name="Changes" comment="adds bad math">
-      <change afterPath="$PROJECT_DIR$/Thesis/src/requirements/power consumption.tex" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Thesis/src/requirements/reading environment.tex" afterDir="false" />
+    <list default="true" id="4b3c09da-1ac8-44e1-ad28-a46389a7db5f" name="Changes" comment="adds reading environment requirement">
+      <change afterPath="$PROJECT_DIR$/Thesis/src/requirements/fan.tex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Thesis/src/main.tex" beforeDir="false" afterPath="$PROJECT_DIR$/Thesis/src/main.tex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Thesis/src/requirements and implementation.tex" beforeDir="false" afterPath="$PROJECT_DIR$/Thesis/src/requirements and implementation.tex" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -266,7 +264,7 @@
       <workItem from="1656137070428" duration="385000" />
       <workItem from="1656233816012" duration="312000" />
       <workItem from="1656344333548" duration="4322000" />
-      <workItem from="1656426748924" duration="5609000" />
+      <workItem from="1656426748924" duration="6559000" />
     </task>
     <task id="LOCAL-00001" summary="wrote introduction">
       <created>1656141822188</created>
@@ -296,7 +294,14 @@
       <option name="project" value="LOCAL" />
       <updated>1656429724570</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="adds reading environment requirement">
+      <created>1656434040237</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1656434040237</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -322,7 +327,8 @@
     <MESSAGE value="adds background information" />
     <MESSAGE value="adds formic acid" />
     <MESSAGE value="adds bad math" />
-    <option name="LAST_COMMIT_MESSAGE" value="adds bad math" />
+    <MESSAGE value="adds reading environment requirement" />
+    <option name="LAST_COMMIT_MESSAGE" value="adds reading environment requirement" />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>
