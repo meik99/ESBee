@@ -10,10 +10,23 @@
 \usepackage{amsmath}
 \usepackage{lipsum}
 
-\addbibresource{main.bib}
-
 \usepackage[skip=10pt plus1pt, indent=0pt]{parskip}
 \usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+\addbibresource{main.bib}
+
+\lstset{language=C++,
+    basicstyle=\ttfamily,
+    keywordstyle=\color{blue}\ttfamily,
+    stringstyle=\color{red}\ttfamily,
+    commentstyle=\color{green}\ttfamily,
+    morecomment=[l][\color{magenta}]{\#}
+}
+
+
 
 \title{Autonomously distributing formic acid \linebreak to treat bee hives against varroa mites }
 \author{Michael Rynkiewicz, k11736476}
