@@ -30,7 +30,7 @@ void loop() {
 \end{lstlisting}
 
 Listing \ref{lst:fan-control} shows the algorithm that controls this behaviour.
-If between the current time and the last pump cycle is more than an hour, the times are set the current time.
+If between the current time and the last pump cycle is more than an hour, the times are set to the current time.
 Doing so allows the program to know when the last cycle ended and measure if the next should begin.
 Immediately afterwards, it is checked whether between the current time and the fan start time is a minute.
 If that is not the case, the pin referenced by the constant \textit{FAN} is set to output a signal, triggering the relay.

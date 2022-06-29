@@ -6,6 +6,8 @@ Bee hives often remain in remote locations, such as woods or pastures.
 Therefore, a power outlet is not an option to power active components.
 Furthermore, ample power must be supplied through the whole duration of the treatment, which is about two weeks.
 
+\newpage
+
 \begin{table}
     \centering
     \caption{Power consumption of active components}
@@ -33,7 +35,7 @@ Components that need a higher voltage also work with a lower voltage, albeit wit
 As for the matter of power consumption, in a later section the algorithm used to deliver the formic acid and distribute it is shown in detail. %TODO: reference section as soon as it exists
 In order to analyse the theoretical power consumption, a short outline is given here.
 Every hour, the DHT11 is used to measure the environments temperature and humidity.
-This process takes 30\ s at the highest.
+This process takes 30\ s at the most.
 Then, the pump is powered until, at most, 1.5 ml of formic acid has been delivered.
 The pumps flow rate is 23 ml/min.
 Therefore, the pump must be powered for $\frac{1.5 ml}{23 \frac{ml}{min}} = 0.065\ min = 3.9\ s \approx 4\ s$.
@@ -72,12 +74,12 @@ The resulting average current is then divided by the powerbank charges.
     388.6\ h = 16.2\ d
 \end{align}
 
-As shown by the calculations above, a powerbank with a $10\ Ah$ charge, the system can be powered for $5.4$ days, less than half of what is required.
-A powerbank providing $30\ Ah$, the system is able to run for $16.2$ days, narrowly exceeding the requirement.
+As shown by the calculations above, with a powerbank with a $10\ Ah$ charge, the system can be powered for $5.4$ days, less than half of what is required.
+With a powerbank providing $30\ Ah$, the system is able to run for $16.2$ days, narrowly exceeding the requirement.
 Note that this does not include the solar panels.
 Using solar panels, the system might be able to run longer or indefinitely.
 However, the actual output of these panels is difficult to assume, as the stated value is only valid under ideal circumstances.
-These circumstances are not always given on cloudy days, if bee hives are located in woods, are covered by night or, trivially, in the night.
+These circumstances are not always given on cloudy days, if bee hives are located in woods, are covered with leaves, or, trivially, in the night.
 Due to these circumstance, they are not considered in this calculation.
 In any case, if a powerbank with $30\ Ah$ is used, the requirement can be seen as fulfilled.
 
